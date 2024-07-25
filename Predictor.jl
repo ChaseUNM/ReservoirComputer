@@ -105,7 +105,7 @@ train_data: data used to train reservoir computer
 test_data: data that will be used to test prediction of reservoir computer
 P: retraining frequency
 U: size of update window
-Update: if True then retraining is done with new data is done; if false then no retraining is done
+Update: if True then update; if false then don't update
 method: Update Method, 1 = Total Retraining, 2 = Moving Window Retraining
 new_data: If updating need to constatnly input true data, this is that true data
 new_F: if True then find output weights, if false then use a pre-selected output weight if wanting to re-use the same output weights for plotting or testing purposes
@@ -184,8 +184,8 @@ function solve_system(ResParams::ReservoirParams,
     counter1 = 0
     counter2 = 0
 
-    if U < 1000
-        av = U - 1
+    if train_steps < 1000
+        av = train_steps - 1
     else
         av = 1000
     end

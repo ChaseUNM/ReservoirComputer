@@ -7,7 +7,8 @@ using LaTeXStrings
 using StatsBase
 using Arpack
 
-using("Predictor.jl")
+include("Predictor.jl")
+include("DataGeneration.jl")
 
 #slowA is the connection matrix between the x-variables in each node, commented lines are different cases of a changing variable
 function slowA(n)
@@ -47,18 +48,19 @@ t_p, tr_p, te_p, t_d, tr_d, te_d = data_generate(1, 6000, 6040, n_data, collect(
 #Uncomment if you want to plot the neuron dynamics
 
 #Create predicted data
-# ResParams = ReservoirParams(6000, 0.001, 0.6, 1.0, 1.0, 0.0001)
-# data, _, _, _, _ = solve_system(ResParams, tr_d, te_d, 50, 100, true, 1, te_d, false, 0, false, true, false)
+ResParams = ReservoirParams(6000, 0.001, 0.6, 1.0, 1.0, 0.0001)
+data, _, _, _, _ = solve_system(ResParams, tr_d, te_d, 50, 100, true, 1, te_d, false, 0, false, true, false)
 
-# true_data = n_data[:,6000:6039]
-# predict_data = data[:,1:40]
+true_data = n_data[:,6000:6039]
+predict_data = data[:,1:40]
 
 
-# x = plot(te_p, true_data[1,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "Node 1")
-# plot!(te_p, predict_data[1,:], label = "Predicted Data")
-# y = plot(te_p, true_data[3,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "Node 2")
-# plot!(te_p, predict_data[3,:], label = "Predicted Data")
-# z = plot(te_p, true_data[5,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "Node 3")
-# plot!(te_p, predict_data[5,:], label = "Predicted Data")
-# savefig("NeuronalPrediction.png")
+node1 = plot(te_p, true_data[1,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "Node 1", legendfontsize=3)
+plot!(te_p, predict_data[1,:], label = "Predicted Data")
+node2 = plot(te_p, true_data[3,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "Node 2", legendfontsize=3)
+plot!(te_p, predict_data[3,:], label = "Predicted Data")
+node3 = plot(te_p, true_data[5,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "Node 3", legendfontsize=3)
+plot!(te_p, predict_data[5,:], label = "Predicted Data")
+plot(node1, node2, node3, layout = (3, 1))
+savefig("NeuronalPrediction.png")
 

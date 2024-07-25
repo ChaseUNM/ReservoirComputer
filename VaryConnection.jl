@@ -45,7 +45,7 @@ t_p, tr_p, te_p, t_d, tr_d, te_d = data_generate(1, 6000, 6040, n_data, collect(
 
 #Create predicted data, return the approximate Jacobian Matrix M
 ResParams = ReservoirParams(6000, 0.001, 0.6, 1.0, 1.0, 0.0001)
-data, _, M, _, _ = solve_system(ResParams, tr_d, te_d, 50, 100, true, 1, te_d, false, 0, true, true, false)
+data, _, M, _, _ = solve_system(ResParams, tr_d, te_d, 50, 100, false, 1, te_d, false, 0, true, true, false)
 
 #Function changes 6 x 6 matrix to 3 x 3 matrix, used when we know we only have connections between the x variables. Will have
 #to change function if more nodes are added or if connections aren't just between x-variables
@@ -85,27 +85,27 @@ function err_comp(True, Infer)
 end
 
 M = changeM(M)
-M = NormalizationM1(M, A_conn)
+M = NormalizationM1(A_conn, M)
 conn_diff = abs.(M - A_conn)
 
 
 #Plotting heatmaps
 h_diff = heatmap(conn_diff, c=:jet, clims = (0, 1), plot_title = "Error", dpi = 250, left_margin = 7mm, bottom_margin = 7mm, ticks = false,
 yflip = true)
-for i in 1:size(A_conn2, 1)
-    for j in 1:size(A_conn2, 2)
+for i in 1:size(A_conn, 1)
+    for j in 1:size(A_conn, 2)
         annotate!(j, i, text(string(round(conn_diff[i,j]; digits = 3)), :white, :center))
     end
 end
 h_og = heatmap(A_conn, c=:jet, clims = (0, 1), title = "True", top_margin = 5mm, ticks = false, yflip = true, dpi = 250)
-for i in 1:size(A_conn2, 1)
-    for j in 1:size(A_conn2, 2)
-        annotate!(j, i, text(string(round(A_conn2[i,j]; digits = 3)), :white, :center))
+for i in 1:size(A_conn, 1)
+    for j in 1:size(A_conn, 2)
+        annotate!(j, i, text(string(round(A_conn[i,j]; digits = 3)), :white, :center))
     end
 end
 h_m = heatmap(M, c=:jet, clims = (0, 1), title = "Inferred", top_margin = 5mm, ticks = false, yflip = true, dpi = 250)
-for i in 1:size(A_conn2, 1)
-    for j in 1:size(A_conn2, 2)
+for i in 1:size(A_conn, 1)
+    for j in 1:size(A_conn, 2)
         annotate!(j, i, text(string(round(M[i,j]; digits = 3)), :white, :center))
     end
 end
@@ -113,3 +113,5 @@ end
 plot(h_og, h_m, layout = (1, 2))
 savefig("NormalizedConnectivity.png")
 savefig(h_diff, "Difference.png")
+
+

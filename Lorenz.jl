@@ -41,14 +41,15 @@ ResParams = ReservoirParams(6000, 0.001, 0.6, 1.0, 1.0, 0.0001)
 data, _, _, _, _ = solve_system(ResParams, tr_d, te_d, 50, 100, true, 1, te_d, false, 0, false, true, false)
 
 #plotting data
-true_data = solu[1,5000:5499]
-predict_data = data[1,1:500]
+true_data = solu[:,5000:5499]
+predict_data = data[:,1:500]
 
-x = plot(te_p, true_data[1,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "x")
+
+x = plot(te_p, true_data[1,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "x", legendfontsize=3)
 plot!(te_p, predict_data[1,:], label = "Predicted Data")
-y = plot(te_p, true_data[2,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "y")
+y = plot(te_p, true_data[2,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "y", legendfontsize=3)
 plot!(te_p, predict_data[2,:], label = "Predicted Data")
-z = plot(te_p, true_data[3,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "z")
+z = plot(te_p, true_data[3,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "z", legendfontsize=3)
 plot!(te_p, predict_data[3,:], label = "Predicted Data")
 plot(x, y, z, layout = (3, 1))
 savefig("LorenzPrediction.png")

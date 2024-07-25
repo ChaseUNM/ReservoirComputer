@@ -50,11 +50,11 @@ data, _, _, _, _ = solve_system(ResParams, tr_d, te_d, 500, 1000, true, 2, te_d,
 true_data = solu[:,4500:6999]
 predict_data = data[:,1:2500]
 
-x = plot(te_p, true_data[1,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "x")
+x = plot(te_p, true_data[1,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "x", legendfontsize=3)
 plot!(te_p, predict_data[1,:], label = "Predicted Data")
-y = plot(te_p, true_data[2,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "y")
+y = plot(te_p, true_data[2,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "y", legendfontsize=3)
 plot!(te_p, predict_data[2,:], label = "Predicted Data")
-z = plot(te_p, true_data[3,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "z")
+z = plot(te_p, true_data[3,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "z", legendfontsize=3)
 plot!(te_p, predict_data[3,:], label = "Predicted Data")
 plot(x, y, z, layout = (3, 1))
 savefig("RosslerPrediction.png")
