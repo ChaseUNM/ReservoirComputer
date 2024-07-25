@@ -150,16 +150,15 @@ function solve_system(ResParams::ReservoirParams,
         end
     end
     @time Q = createQ(A, W, train_data, alpha, nodes, xi)
-    #@save "Q_t" Q
-    #println("Training...")   
+    println("Training...")   
     
     @time F_in, r, states = train(train_data, Q, ridge_param)
 
     if new_F == true
         F_in .= F 
     end
-    #@save "F_in" F_in
-    #println("Training complete")
+    
+    println("Training complete")
     residual = norm(F_in*Q .- train_data)
     residual_normal = residual/norm(train_data)
 
