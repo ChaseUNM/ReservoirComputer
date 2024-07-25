@@ -56,4 +56,5 @@ y = plot(te_p, true_data[2,:], label = "True Data", ls=:dash, bottom_margin = 8m
 plot!(te_p, predict_data[2,:], label = "Predicted Data")
 z = plot(te_p, true_data[3,:], label = "True Data", ls=:dash, bottom_margin = 8mm, left_margin = 8mm, dpi = 250, ylabel = "z")
 plot!(te_p, predict_data[3,:], label = "Predicted Data")
+plot(x, y, z, layout = (3, 1))
 savefig("RosslerPrediction.png")
