@@ -105,7 +105,7 @@ train_data: data used to train reservoir computer
 test_data: data that will be used to test prediction of reservoir computer
 P: retraining frequency
 U: size of update window
-Update: if True then update; if false then don't update
+Update: if True then retraining is done with new data is done; if false then no retraining is done
 method: Update Method, 1 = Total Retraining, 2 = Moving Window Retraining
 new_data: If updating need to constatnly input true data, this is that true data
 new_F: if True then find output weights, if false then use a pre-selected output weight if wanting to re-use the same output weights for plotting or testing purposes
