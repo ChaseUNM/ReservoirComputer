@@ -234,7 +234,7 @@ function solve_system(ResParams::ReservoirParams,
                 if method == 1
                     Q = createQ(A, W, train_data, alpha, nodes, xi)
                     F, r, states = train(train_data, Q, ridge_param)
-                    println("Difference between previous and new parameters: ", norm(F - F_in, 1))
+                    #println("Difference between previous and new parameters: ", norm(F - F_in, 1))
                     F_in .= F
 
                 #Method 2 has a moving window retrain, retrain using the previous U time steps
@@ -242,7 +242,7 @@ function solve_system(ResParams::ReservoirParams,
                     train_data2 = train_data[:,train_steps2 - U + 1:train_steps2]
                     Q = createQ(A, W, train_data2, alpha, nodes, xi)
                     F, r, states = train(train_data2, Q, ridge_param)
-                    println("Difference between previous and new parameters: ", norm(F - F_in, 1))
+                    #println("Difference between previous and new parameters: ", norm(F - F_in, 1))
                     F_in .= F
                 end
                 counter1 += 1
